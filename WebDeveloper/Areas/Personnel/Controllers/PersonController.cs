@@ -7,12 +7,14 @@ using WebDeveloper.Filters;
 using WebDeveloper.Model;
 using WebDeveloper.Repository;
 
-namespace WebDeveloper.Controllers
+namespace WebDeveloper.Areas.Personnel.Controllers
 {
     [AuditControl]
     public class PersonController : Controller
     {
         // GET: Person
+        // Address / BussinessEntity / BussinessEntityAddress / BussinessEntityContact / EmailAddress / PersonPhone
+        //http://antoniogonzalezm.es/google-hacking-46-ejemplos-hacker-contrasenas-usando-google-enemigo-peor/
         private PersonRepository _person = new PersonRepository();        
         public ActionResult Index()
         {

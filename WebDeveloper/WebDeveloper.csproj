@@ -169,8 +169,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Personnel\PersonnelAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\PersonController.cs" />
     <Compile Include="Filters\AuditControl.cs" />
     <Compile Include="Filters\ExceptionControl.cs" />
     <Compile Include="Global.asax.cs">
@@ -193,6 +194,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Code\CustomHelper.cshtml" />
+    <Content Include="Areas\Personnel\Views\web.config" />
+    <Content Include="Areas\Personnel\Views\_ViewStart.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -227,15 +230,16 @@
     <Content Include="scss\styles.scss" />
     <Content Include="scss\base\_site.scss" />
     <Content Include="scss\helpers\_colors.scss" />
-    <Content Include="Views\Person\Delete2.cshtml" />
-    <Content Include="Views\Person\Index.cshtml" />
-    <Content Include="Views\Person\Create.cshtml" />
-    <Content Include="Views\Person\Edit.cshtml" />
-    <Content Include="Views\Person\Delete.cshtml" />
-    <Content Include="Views\Person\Details.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\Index.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\Create.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\Edit.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\Delete.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Personnel\Models\" />
+    <Folder Include="Areas\Personnel\Views\Shared\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
