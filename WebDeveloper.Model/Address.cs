@@ -16,6 +16,7 @@ namespace WebDeveloper.Model
             BusinessEntityAddress = new HashSet<BusinessEntityAddress>();
         }
 
+        [Key]
         public int AddressID { get; set; }
 
         [Required]
