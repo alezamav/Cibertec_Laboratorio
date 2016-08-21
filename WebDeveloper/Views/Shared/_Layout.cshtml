@@ -19,12 +19,15 @@
                     </button>
                     @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
-                <nav class="navbar-collapse collapse">                    
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Person", "Index", "Person")</li>
-                        <li>@Html.ActionLink("Address", "Index", "Address")</li>
-                        <li><a href="#">Opción 3</a></li>
-                    </ul>
+                <nav class="navbar-collapse collapse">        
+                    @if(Request.IsAuthenticated)
+                    { 
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Person", "Index", new { area = "Personnel", controller = "Person" })</li>
+                            <li>@Html.ActionLink("Address", "Index", new { area = "Personnel", controller = "Address" })</li>
+                        </ul>
+                    }
+                    @Html.Partial("_LoginPartial");
                 </nav>
             </div>
         </div>

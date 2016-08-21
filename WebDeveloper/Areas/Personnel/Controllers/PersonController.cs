@@ -9,17 +9,22 @@ using WebDeveloper.Repository;
 
 namespace WebDeveloper.Areas.Personnel.Controllers
 {
-    [AuditControl]
-    public class PersonController : Controller
+    //[AuditControl]
+    public class PersonController : PersonBaseController<Person>
     {
         // GET: Person
         // Address / BussinessEntity / BussinessEntityAddress / BussinessEntityContact / EmailAddress / PersonPhone
         //http://antoniogonzalezm.es/google-hacking-46-ejemplos-hacker-contrasenas-usando-google-enemigo-peor/
-        private PersonRepository _person = new PersonRepository();        
+        //private PersonRepository _repository = new PersonRepository();   
+       // private IRepository<Person> _repository;
+
+     
+                 
         public ActionResult Index()
         {
-            //return View(_person.GetList());
-            return View(_person.GetListBySize(15));
+            //return View(_repository.GetList());
+            //return View(_repository.GetListBySize(15));
+            return View(_repository.GetList().OrderByDescending(p => p.ModifiedDate).Take(15));
         }
 
         public ActionResult Create()
@@ -39,13 +44,14 @@ namespace WebDeveloper.Areas.Personnel.Controllers
                 ModifiedDate = person.ModifiedDate
             };
 
-            _person.Add(person);
+            _repository.Add(person);
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
         {
-            var person = _person.GetById(id);
+            //var person = _repository.GetById(id);
+            var person = _repository.GetById(x=> x.BusinessEntityID==id);
             if (person == null) return RedirectToAction("Index");
             return View(person);
         }
@@ -54,13 +60,13 @@ namespace WebDeveloper.Areas.Personnel.Controllers
         public ActionResult Edit(Person person)
         {
             if (!ModelState.IsValid) return View(person);
-            _person.Update(person);
+            _repository.Update(person);
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id)
         {
-            var person = _person.GetById(id);
+            var person = _repository.GetById(x => x.BusinessEntityID == id);
             if (person == null) return RedirectToAction("Index");
             return View(person);
         }
@@ -68,15 +74,16 @@ namespace WebDeveloper.Areas.Personnel.Controllers
         [HttpPost]
         public ActionResult Delete(Person person)
         {
-            person = _person.GetCompletePersonById(person.BusinessEntityID);   
-            _person.Delete(person);
+            //  person = _repository.GetCompletePersonById(person.BusinessEntityID);   
+           // person = _repository.GetById(x => x.BusinessEntityID == person.BusinessEntityID);
+            _repository.Delete(person);
             return RedirectToAction("Index");
         }
 
 
         public ActionResult Details(int id)
         {
-            var person = _person.GetById(id);
+            var person = _repository.GetById(x => x.BusinessEntityID == id);
             if (person == null) return RedirectToAction("Index");
             return View(person);
         }
