@@ -17,11 +17,11 @@
     <AssemblyName>WebDeveloper</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>1242</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -172,7 +172,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Personnel\Controllers\AddressController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\BusinessEntityAddressController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\BusinessEntityContactController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\BusinessEntityController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\ContactTypeController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\CountryRegionController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\EmailAddressController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\PasswordController.cs" />
     <Compile Include="Areas\Personnel\Controllers\PersonBaseController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\PersonPhoneController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\PhoneNumberTypeController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\StateProvinceController.cs" />
     <Compile Include="Areas\Personnel\PersonnelAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -209,6 +219,7 @@
     <Content Include="Areas\Personnel\Views\Address\Edit.cshtml" />
     <Content Include="Areas\Personnel\Views\Address\Delete.cshtml" />
     <Content Include="Areas\Personnel\Views\Address\Details.cshtml" />
+    <Content Include="Areas\Personnel\Views\EmailAddress\_Email.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -217,6 +228,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
