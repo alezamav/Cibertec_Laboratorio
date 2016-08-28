@@ -8,6 +8,7 @@ using WebDeveloper.Filters;
 namespace WebDeveloper.Controllers
 {
     [ExceptionControl]
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()

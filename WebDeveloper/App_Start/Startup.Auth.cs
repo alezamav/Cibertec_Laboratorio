@@ -58,11 +58,12 @@ namespace WebDeveloper
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            //http://www.oauthforaspnet.com/providers/google/guides/aspnet-mvc5/
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "441327908645-k3lavvcs0j5ccv5dhnhl0oblhcobe8l3.apps.googleusercontent.com",
+                ClientSecret = "19MJdP9gjmPtk4MI0-iWNm7O"
+            });
         }
     }
 }
