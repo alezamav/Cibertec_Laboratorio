@@ -11,6 +11,28 @@
     @CustomHelper.Message("deleteMessage", "danger", "The record was deleted")
 </p>
 
+
+
+<div class="row">
+    @CustomHelper.RowSizeDropdown()
+    <div class="col-lg-8" id="paginator-container">
+        <div class="paginator"></div>
+    </div>
+    @*<div class="col-lg-1">
+        <div class="form-group" style="padding-top:20px">
+            <select class="form-control" id="paginationDro">
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="35">35</option>
+                <option value="40">40</option>
+                <option value="45">45</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+   </div>*@
+</div>
+
+
 <p>
   <a href="#"  onclick="getModalContent('@Url.Action("Create",new {area="Personnel"})')" 
    data-toggle="modal" data-target="#modal-container" class="btn btn-success" >
@@ -20,25 +42,14 @@
 </p>
 
 <div id="personContent"></div>
+
+<input id="urlBase" type="hidden" value="@Url.Action("", new {controller="Person", area = "Personnel"})" />
+
 @CustomHelper.GetModal("Person")
 
-<script src="~/Scripts/Shared/modal.js"></script>
+
+@Scripts.Render("~/bundles/modal")
 @Scripts.Render("~/bundles/unobtrusive-ajax")
-
-<script>
-    var rowsByPage = 15;
-    $(function () {
-        goToPage(1);
-
-
-    });
-
-    function goToPage(page) {
-        var url = '@Url.Action("List", new {controller="Person", area = "Personnel"})';
-        var finalUrl = url + "?page=" + page + "&size=" + rowsByPage;
-        $.get(finalUrl, function (data) {
-            $('#personContent').html(data);
-        })
-    }
-
-</script>
+@Scripts.Render("~/bundles/paginator")
+<script src="~/Scripts/jquery.blockUI.js"></script>
+@Scripts.Render("~/bundles/person")

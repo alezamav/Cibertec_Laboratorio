@@ -37,6 +37,22 @@ namespace WebDeveloper.Areas.Personnel.Controllers
             return PartialView("_List",_repository.PaginatedList((x => x.ModifiedDate), page.Value, size.Value));
         }
 
+        public int PageTotal(int rows)
+        {
+            //int CountPage = 0;
+            //if (!size.HasValue)
+            //{
+            //    size = 15;
+            //}
+            //if (size <= 0) { size = 1; }
+            //int CountRows = _repository.GetList().Count();
+            //CountPage =Convert.ToInt32(Math.Round(Convert.ToDouble(CountRows) / Convert.ToDouble(size)));
+            //return CountPage;
+            if (rows <= 0) return rows;
+            var count = _repository.GetList().Count;
+            return count % rows > 0 ? (count / rows) + 1 : count / rows;
+        }
+
         public ActionResult Create()
         {
             return PartialView("_Create");
