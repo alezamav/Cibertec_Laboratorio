@@ -1,4 +1,5 @@
-﻿var rowsByPage = 15;
+﻿//https://github.com/cevegaju/Cibertec_Laboratorio
+var rowsByPage = 15;
 var totalPage = 1;
 var currentPage = 1;
 var baseUrl = '';
