@@ -17,10 +17,16 @@ namespace WebDeveloper.Repository
             db = new WebContextDb();
         }
 
+        public BaseRepository(WebContextDb webcontext)
+        {
+            db = webcontext;
+        }
+
         public int Add(T entity)
         {
 
-            db.Entry(entity).State = EntityState.Added;
+            //db.Entry(entity).State = EntityState.Added;
+            db.Set<T>().Add(entity);
             return db.SaveChanges();
 
         }

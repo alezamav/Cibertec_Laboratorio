@@ -16,9 +16,13 @@ namespace WebDeveloper.Areas.Personnel.Controllers
     {
         protected IRepository<T> _repository;
 
-        public PersonBaseController()
+        //public PersonBaseController()
+        //{
+        //    _repository = new BaseRepository<T>();
+        //}
+        public PersonBaseController(IRepository<T> repository)
         {
-            _repository = new BaseRepository<T>();
+            _repository = repository;
         }
 
     }

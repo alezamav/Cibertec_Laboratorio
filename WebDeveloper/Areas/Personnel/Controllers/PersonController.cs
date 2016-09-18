@@ -19,6 +19,11 @@ namespace WebDeveloper.Areas.Personnel.Controllers
         //private PersonRepository _repository = new PersonRepository();   
        // private IRepository<Person> _repository;
 
+        public PersonController (IRepository<Person> repository)
+            :base(repository)
+        {
+
+        }
      
                  
         public ActionResult Index()
