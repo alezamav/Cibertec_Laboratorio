@@ -10,14 +10,9 @@ namespace WebDeveloper.Areas.Personnel.Controllers
 {
     public class BusinessEntityController : PersonBaseController<BusinessEntity>
     {
-        // GET: Personnel/BusinessEntity
-
-        public BusinessEntityController(IRepository<BusinessEntity> repository)
-            :base(repository)
+        public BusinessEntityController(IRepository<BusinessEntity> repository): base(repository)
         {
-
         }
-
         public ActionResult Index()
         {
             return View();

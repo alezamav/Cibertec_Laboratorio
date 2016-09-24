@@ -10,14 +10,9 @@ namespace WebDeveloper.Areas.Personnel.Controllers
 {
     public class CountryRegionController : PersonBaseController<CountryRegion>
     {
-        // GET: Personnel/CountryRegion
-
-        public CountryRegionController(IRepository<CountryRegion> repository)
-            :base(repository)
+        public CountryRegionController(IRepository<CountryRegion> repository): base(repository)
         {
-
         }
-
         public ActionResult Index()
         {
             return View();

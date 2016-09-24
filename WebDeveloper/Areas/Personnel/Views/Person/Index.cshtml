@@ -1,55 +1,32 @@
-﻿@model IEnumerable<WebDeveloper.Model.Person>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-<h2 id="test">Index</h2>
-<p>
-    @CustomHelper.Message("succesMessage","success","The record was created")
-    @CustomHelper.Message("editMessage", "info", "The record was updated")
-    @CustomHelper.Message("deleteMessage", "danger", "The record was deleted")
-</p>
+<h2>Index</h2>
 
-
+@CustomHelper.AlertMessages()
+<div>
+    <a href="#" onclick="getModalContent('@Url.Action("Create",new { area="Personnel" })'); return false;" data-toggle="modal" data-target="#modal-container" class="btn btn-success btn-sm">
+        <span class="glyphicon glyphicon-plus"></span> Create New
+    </a>
+</div>
 
 <div class="row">
     @CustomHelper.RowSizeDropdown()
     <div class="col-lg-8" id="paginator-container">
         <div class="paginator"></div>
     </div>
-    @*<div class="col-lg-1">
-        <div class="form-group" style="padding-top:20px">
-            <select class="form-control" id="paginationDro">
-                <option value="15">15</option>
-                <option value="30">30</option>
-                <option value="35">35</option>
-                <option value="40">40</option>
-                <option value="45">45</option>
-                <option value="50">50</option>
-            </select>
-        </div>
-   </div>*@
 </div>
-
-
-<p>
-  <a href="#"  onclick="getModalContent('@Url.Action("Create",new {area="Personnel"})')" 
-   data-toggle="modal" data-target="#modal-container" class="btn btn-success" >
-      <span class="glyphicon glyphicon-plus"></span>
-      Create New
-  </a>
-</p>
-
 <div id="personContent"></div>
-
-<input id="urlBase" type="hidden" value="@Url.Action("", new {controller="Person", area = "Personnel"})" />
-
+@Scripts.Render("~/bundles/unobtrusive-ajax")
 @CustomHelper.GetModal("Person")
 
 
 @Scripts.Render("~/bundles/modal")
-@Scripts.Render("~/bundles/unobtrusive-ajax")
 @Scripts.Render("~/bundles/paginator")
-<script src="~/Scripts/jquery.blockUI.js"></script>
 @Scripts.Render("~/bundles/person")
+
+<script type="text/javascript">    
+    var pageSizeAction = '@Url.Action("PageSize", new { controller = "Person", area = "Personnel" })';
+    var listAction = '@Url.Action("List", new { controller = "Person", area = "Personnel" })';
+</script>

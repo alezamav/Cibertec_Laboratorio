@@ -10,13 +10,9 @@ namespace WebDeveloper.Areas.Personnel.Controllers
 {
     public class PasswordController : PersonBaseController<Password>
     {
-        // GET: Personnel/Password
-        public PasswordController(IRepository<Password> repository)
-            :base(repository)
+        public PasswordController(IRepository<Password> repository): base(repository)
         {
-
         }
-
         public ActionResult Index()
         {
             return View();

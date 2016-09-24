@@ -1,27 +1,14 @@
-﻿//https://github.com/cevegaju/Cibertec_Laboratorio
+﻿var pageSize = 0;
 var rowsByPage = 15;
-var totalPage = 1;
 var currentPage = 1;
-var baseUrl = '';
-$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 
 $(function () {
-    baseUrl = document.getElementById('urlBase').value;
-    goToPage(1);
-    getTotalPage(rowsByPage);
-    
-   /* $('#paginationDro').on('change', function () {
-        goToPage(1);
-        rowsByPage = $('#paginationDro').val();
-        getTotalPage();
-    });*/
-
+    calculateNumberOfPages(rowsByPage);
 });
 
 function setPaginator() {
-
     $(".paginator").bootpag({
-        total: totalPage,
+        total: pageSize,
         page: 1,
         maxVisible: 5,
         leaps: true,
@@ -37,39 +24,33 @@ function setPaginator() {
         firstClass: 'first'
     }).on("page", function (event, num) {
         goToPage(num);
+        $(this).bootpag({ total: pageSize });
     });
 }
 
 function goToPage(page) {
-    var finalUrl = baseUrl + "/List?page=" + page + "&size=" + rowsByPage;
-    $.get(finalUrl, function (data) {
+    fullUrl = listAction + "?page=" + page + "&size=" + rowsByPage;
+    $.get(fullUrl, function (data) {
         $('#personContent').html(data);
         currentPage = page;
-    })
-}
-
-function getTotalPage() {
-    
-    var finalUrl = baseUrl + "/PageTotal?rows=" + rowsByPage;
-    $.get(finalUrl, function (data) {
-        totalPage = data;
-        setPaginator();
-    })
+    });
 }
 
 function changeSize() {
-    /*goToPage(1);
-    rowsByPage = $('#paginationDro').val();
-    getTotalPage();*/
-    rowsByPage = document.getElementById('rowsByPage').value;
+    rowsByPage = $("#rowsByPage").val();
     if (rowsByPage)
-    {
-        getTotalPage();
-        goToPage(1);
-    }
+        calculateNumberOfPages(rowsByPage);
 }
 
-function updatePage() {
-    if (currentPage > totalPage) { currentPage = 1;}
+function calculateNumberOfPages(rowsByPage) {
+    var url = pageSizeAction + '?pageSize=' + rowsByPage;
+    $.get(url, function (data) {
+        pageSize = data;
+        setPaginator();
+        goToPage(1);
+    });    
+}
+
+function reloadPage() {
     goToPage(currentPage);
 }

@@ -10,23 +10,12 @@ namespace WebDeveloper.Areas.Personnel.Controllers
 {
     public class PersonPhoneController : PersonBaseController<PersonPhone>
     {
-        // GET: Personnel/PersonPhone
-
-        public PersonPhoneController(IRepository<PersonPhone> repository)
-            :base(repository)
+        public PersonPhoneController(IRepository<PersonPhone> repository): base(repository)
         {
-
         }
-
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult PhoneByPerson(int id)
-        {
-            return PartialView("_Phone", _repository.ListById(x => x.BusinessEntityID == id));
-        }
-
     }
 }

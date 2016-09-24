@@ -10,13 +10,9 @@ namespace WebDeveloper.Areas.Personnel.Controllers
 {
     public class PhoneNumberTypeController : PersonBaseController<PhoneNumberType>
     {
-        // GET: Personnel/PhoneNumberType
-        public PhoneNumberTypeController(IRepository<PhoneNumberType> repository)
-            :base(repository)
+        public PhoneNumberTypeController(IRepository<PhoneNumberType> repository): base(repository)
         {
-
         }
-
         public ActionResult Index()
         {
             return View();

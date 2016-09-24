@@ -10,14 +10,9 @@ namespace WebDeveloper.Areas.Personnel.Controllers
 {
     public class StateProvinceController : PersonBaseController<StateProvince>
     {
-
-        public StateProvinceController(IRepository<StateProvince> repository)
-            :base(repository)
+        public StateProvinceController(IRepository<StateProvince> repository): base(repository)
         {
-
         }
-
-        // GET: Personnel/StateProvince
         public ActionResult Index()
         {
             return View();
