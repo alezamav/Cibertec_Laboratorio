@@ -73,6 +73,45 @@ namespace WebDeveloper.Tests.Controllers
 
         }
 
+        [Fact(DisplayName = "EditGetTest")]
+        private void EditGetTest()
+        {
+            BasicConfigMockData();
+            controller = new PersonController(_repository);
+            var result = controller.Edit(307) as PartialViewResult;
+            result.ViewName.Should().Be("_Edit");
+
+            var personModelCreate = (PersonViewModel)result.Model;
+            personModelCreate.Person.Should().NotBeNull();
+        }
+
+        [Fact(DisplayName = "EditPostTestOK")]
+        private void EditPostTestOK()
+        {
+            BasicConfigMockData();
+            controller = new PersonController(_repository);
+            var result = controller.Edit(TestPersonEditOk()) as PartialViewResult;
+            result.Should().BeNull();
+
+            personDbSetMock.Verify(s => s.Find(It.IsAny<Person>()), Times.Once());
+            webContextMock.Verify(c => c.SaveChanges(), Times.Once());
+        }
+
+        [Fact(DisplayName = "DeletePostTestOK")]
+        private void DeletePostTestOK()
+        {
+            BasicConfigMockData();
+            controller = new PersonController(_repository);
+            var result = controller.Delete(TestPersonEditOk()) as PartialViewResult;
+            result.Should().BeNull();
+
+            personDbSetMock.Verify(s => s.Remove(It.IsAny<Person>()), Times.Once());
+            webContextMock.Verify(c => c.SaveChanges(), Times.Once());
+        }
+
+
+
+
         #region Configuration Values
         public void PersonMockList()
         {
@@ -99,6 +138,26 @@ namespace WebDeveloper.Tests.Controllers
                 LastName = "Test",
                 EmailPromotion = 1
             };
+            person.rowguid = Guid.NewGuid();
+            person.ModifiedDate = DateTime.Now;
+            person.BusinessEntity = new BusinessEntity
+            {
+                ModifiedDate = DateTime.Now,
+                rowguid = person.rowguid
+            };
+            return person;
+        }
+
+        private Person TestPersonEditOk()
+        {
+            var person = new Person
+            {
+                PersonType = "SC",
+                FirstName = "Test",
+                LastName = "Test",
+                EmailPromotion = 1
+            };
+            person.BusinessEntityID = 307;
             person.rowguid = Guid.NewGuid();
             person.ModifiedDate = DateTime.Now;
             person.BusinessEntity = new BusinessEntity
