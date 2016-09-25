@@ -76,7 +76,7 @@ namespace WebDeveloper.Tests.Controllers
         [Fact(DisplayName = "EditGetTest")]
         private void EditGetTest()
         {
-            BasicConfigMockData();
+            ListConfigMockData();
             controller = new PersonController(_repository);
             var result = controller.Edit(307) as PartialViewResult;
             result.ViewName.Should().Be("_Edit");
@@ -88,7 +88,7 @@ namespace WebDeveloper.Tests.Controllers
         [Fact(DisplayName = "EditPostTestOK")]
         private void EditPostTestOK()
         {
-            BasicConfigMockData();
+            ListConfigMockData();
             controller = new PersonController(_repository);
             var result = controller.Edit(TestPersonEditOk()) as PartialViewResult;
             result.Should().BeNull();
@@ -100,7 +100,7 @@ namespace WebDeveloper.Tests.Controllers
         [Fact(DisplayName = "DeletePostTestOK")]
         private void DeletePostTestOK()
         {
-            BasicConfigMockData();
+            ListConfigMockData();
             controller = new PersonController(_repository);
             var result = controller.Delete(TestPersonEditOk()) as PartialViewResult;
             result.Should().BeNull();
