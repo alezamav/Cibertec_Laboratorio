@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.WebApi.Extensions.Compression.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Extensions.Compression.Core.Compressors;
 using System.Web.Http;
 
 namespace WebDeveloper.API
@@ -9,9 +11,11 @@ namespace WebDeveloper.API
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuración y servicios de API web
+            GlobalConfiguration.Configuration.MessageHandlers.Insert(
+                0,new ServerCompressionHandler(new GZipCompressor(),
+                new DeflateCompressor()));
 
-            // Rutas de API web
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

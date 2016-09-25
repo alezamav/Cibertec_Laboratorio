@@ -38,6 +38,24 @@ namespace WebDeveloper
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css")
                       .Include("~/Css/site.css"));
+
+            //Folder dinamico
+            bundles.Add(
+                new DynamicFolderBundle("js", "*.js", false, new JsMinify())
+                );
+            bundles.Add(
+               new DynamicFolderBundle("css", "*.js", false, new CssMinify())
+               );
+
+
+#if DEBUG            
+            BundleTable.EnableOptimizations = false;
+#else
+            BundleTable.EnableOptimizations = true;
+#endif
+
+
+
         }
     }
 }
