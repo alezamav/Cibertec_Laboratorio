@@ -44,6 +44,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LightInject, Version=4.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.4.1.1\lib\net45\LightInject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LightInject.Mvc, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Mvc.1.1.0\lib\net45\LightInject.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LightInject.Web, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Web.1.1.0\lib\net45\LightInject.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -170,8 +182,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Injector.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Personnel\Controllers\AddressController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\AddressTypeController.cs" />
     <Compile Include="Areas\Personnel\Controllers\BusinessEntityAddressController.cs" />
     <Compile Include="Areas\Personnel\Controllers\BusinessEntityContactController.cs" />
     <Compile Include="Areas\Personnel\Controllers\BusinessEntityController.cs" />
@@ -182,7 +196,10 @@
     <Compile Include="Areas\Personnel\Controllers\PersonBaseController.cs" />
     <Compile Include="Areas\Personnel\Controllers\PersonPhoneController.cs" />
     <Compile Include="Areas\Personnel\Controllers\PhoneNumberTypeController.cs" />
+    <Compile Include="Areas\Personnel\Controllers\PictureController.cs" />
     <Compile Include="Areas\Personnel\Controllers\StateProvinceController.cs" />
+    <Compile Include="Areas\Personnel\Models\PersonViewModel.cs" />
+    <Compile Include="Areas\Personnel\Models\PictureViewModel.cs" />
     <Compile Include="Areas\Personnel\PersonnelAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -200,8 +217,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Personnel\Scripts\FileUpload.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Css\bootstrap-datepicker3.css" />
     <Content Include="Css\site.css" />
     <Content Include="Css\site.min.css">
       <DependentUpon>site.css</DependentUpon>
@@ -209,6 +228,8 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Code\CustomHelper.cshtml" />
@@ -220,6 +241,8 @@
     <Content Include="Areas\Personnel\Views\Address\Delete.cshtml" />
     <Content Include="Areas\Personnel\Views\Address\Details.cshtml" />
     <Content Include="Areas\Personnel\Views\EmailAddress\_Email.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\_List.cshtml" />
+    <Content Include="Areas\Personnel\Views\Picture\FileUpload.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -228,6 +251,9 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.bootpag.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -235,8 +261,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Areas\Personnel\Scripts\person.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Shared\modal.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -257,29 +285,16 @@
     <Content Include="scss\base\_site.scss" />
     <Content Include="scss\helpers\_colors.scss" />
     <Content Include="Areas\Personnel\Views\Person\Index.cshtml" />
-    <Content Include="Areas\Personnel\Views\Person\Create.cshtml" />
-    <Content Include="Areas\Personnel\Views\Person\Edit.cshtml" />
-    <Content Include="Areas\Personnel\Views\Person\Delete.cshtml" />
-    <Content Include="Areas\Personnel\Views\Person\Details.cshtml" />
-    <Content Include="Views\Account2\Register.cshtml" />
-    <Content Include="Views\Account2\Login.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\_Create.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\_Edit.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\_Delete.cshtml" />
+    <Content Include="Areas\Personnel\Views\Person\_Details.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Personnel\Models\" />
     <Folder Include="Areas\Personnel\Views\PersonBase\" />
     <Folder Include="Areas\Personnel\Views\Shared\" />
   </ItemGroup>
@@ -319,7 +334,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1242</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44318/</IISUrl>
+          <IISUrl>http://localhost:5023/WebDeveloper</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

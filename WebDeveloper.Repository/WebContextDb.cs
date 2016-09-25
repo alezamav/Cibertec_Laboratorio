@@ -11,16 +11,12 @@ namespace WebDeveloper.Repository
 {
     public class WebContextDb : DbContext
     {
-        public WebContextDb(): base("WebDeveloperConnectionString")
+        public WebContextDb() : base("WebDeveloperConnectionString")
         {
+            Database.SetInitializer<WebContextDb>(null);
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
-
-        /* public DbSet<Person> Persons { get; set; }
-
-         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-         {
-             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-         }*/
 
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<AddressType> AddressType { get; set; }
@@ -35,10 +31,12 @@ namespace WebDeveloper.Repository
         public virtual DbSet<PersonPhone> PersonPhone { get; set; }
         public virtual DbSet<PhoneNumberType> PhoneNumberType { get; set; }
         public virtual DbSet<StateProvince> StateProvince { get; set; }
+        //public virtual DbSet<Picture> Picture { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
             modelBuilder.Entity<Address>()
                 .HasMany(e => e.BusinessEntityAddress)
                 .WithRequired(e => e.Address)
@@ -52,17 +50,16 @@ namespace WebDeveloper.Repository
             modelBuilder.Entity<BusinessEntity>()
                 .HasMany(e => e.BusinessEntityAddress)
                 .WithRequired(e => e.BusinessEntity)
-                .WillCascadeOnDelete(true);
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<BusinessEntity>()
                 .HasMany(e => e.BusinessEntityContact)
                 .WithRequired(e => e.BusinessEntity)
-                .WillCascadeOnDelete(true);
-            //Se agrega  WillCascadeOnDelete
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<BusinessEntity>()
                 .HasOptional(e => e.Person)
-                .WithRequired(e => e.BusinessEntity)
-                .WillCascadeOnDelete(true);
+                .WithRequired(e => e.BusinessEntity);
 
             modelBuilder.Entity<ContactType>()
                 .HasMany(e => e.BusinessEntityContact)
@@ -90,12 +87,12 @@ namespace WebDeveloper.Repository
                 .HasMany(e => e.BusinessEntityContact)
                 .WithRequired(e => e.Person)
                 .HasForeignKey(e => e.PersonID)
-                .WillCascadeOnDelete(true);
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Person>()
                 .HasMany(e => e.EmailAddress)
                 .WithRequired(e => e.Person)
-                .WillCascadeOnDelete(true);
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Person>()
                 .HasOptional(e => e.Password)
@@ -110,6 +107,10 @@ namespace WebDeveloper.Repository
                 .HasMany(e => e.PersonPhone)
                 .WithRequired(e => e.PhoneNumberType)
                 .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Picture>()
+            //    .Property(e => e.ImagePath)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<StateProvince>()
                 .Property(e => e.StateProvinceCode)

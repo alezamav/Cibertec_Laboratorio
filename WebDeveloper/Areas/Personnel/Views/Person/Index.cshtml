@@ -1,115 +1,32 @@
-﻿@model IEnumerable<WebDeveloper.Model.Person>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PersonType)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.NameStyle)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Suffix)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailPromotion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdditionalContactInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Demographics)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.rowguid)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PersonType)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.NameStyle)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MiddleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Suffix)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailPromotion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdditionalContactInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Demographics)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.rowguid)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BusinessEntityID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BusinessEntityID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.BusinessEntityID }) |
-            @Ajax.ActionLink("Emails", "EmailByPerson", new {area="Personnel",controller="EmailAddress" ,id = item.BusinessEntityID },
-            new AjaxOptions()
-            {
-                HttpMethod="GET",
-                AllowCache=false,
-                InsertionMode=InsertionMode.Replace,
-                UpdateTargetId="emailContent"
-            }
-           )
-
-        </td>
-    </tr>
-}
-
-</table>
-
-<div class="row">
-    <div id="emailContent" class="col-lg-12"></div>
+@CustomHelper.AlertMessages()
+<div>
+    <a href="#" onclick="getModalContent('@Url.Action("Create",new { area="Personnel" })'); return false;" data-toggle="modal" data-target="#modal-container" class="btn btn-success btn-sm">
+        <span class="glyphicon glyphicon-plus"></span> Create New
+    </a>
 </div>
 
+<div class="row">
+    @CustomHelper.RowSizeDropdown()
+    <div class="col-lg-8" id="paginator-container">
+        <div class="paginator"></div>
+    </div>
+</div>
+<div id="personContent"></div>
 @Scripts.Render("~/bundles/unobtrusive-ajax")
+@CustomHelper.GetModal("Person")
+
+
+@Scripts.Render("~/bundles/modal")
+@Scripts.Render("~/bundles/paginator")
+@Scripts.Render("~/bundles/person")
+
+<script type="text/javascript">    
+    var pageSizeAction = '@Url.Action("PageSize", new { controller = "Person", area = "Personnel" })';
+    var listAction = '@Url.Action("List", new { controller = "Person", area = "Personnel" })';
+</script>
