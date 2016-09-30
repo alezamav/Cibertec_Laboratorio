@@ -22,10 +22,10 @@ namespace WebDeveloper.API.Controllers
         //public IHttpActionResult List()
         //{
         //    return  Ok(_repository.PaginatedList(p=>p.ModifiedDate,1,10));
-         
-        //}
 
-       
+        //}
+        //https://gist.github.com/RayKwon/6260978
+
         [HttpPut]
         [Route("")]
         public IHttpActionResult Create(Person person)
