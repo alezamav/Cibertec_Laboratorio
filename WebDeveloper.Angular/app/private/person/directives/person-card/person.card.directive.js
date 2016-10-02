@@ -10,7 +10,7 @@
         return {
             templateUrl: 'app/private/person/directives/person-card/person-card.html',
             restrict: 'E',
- //           transclude: true,
+            transclude: true,//Para enviar HTML
             scope: {
                 personId: '@',
                 firstName: '@',

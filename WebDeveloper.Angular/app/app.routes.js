@@ -7,6 +7,11 @@
 
     function routeConfig($stateProvider, $urlRouterProvider) {
         $stateProvider
+            .state("login",
+            {
+                url: "/login",
+                templateUrl: "app/public/login/login.html"
+            })
             .state("home",
             {
                 url: "/home",

@@ -10,7 +10,8 @@
         var vm = this;
         vm.title = 'Person Controller';
         vm.personList = [];
-
+        vm.getPersonDetail = getPersonDetail;
+        vm.person;
         init();
 
        
@@ -27,6 +28,17 @@
                     vm.personList = result.data;
                 },
                 function (error) {
+                    console.log(error);
+                });
+        }
+
+        function getPersonDetail(id) {
+            dataService.getData(apiUrl + id).then(
+                function (result) {
+                    vm.person = result.data;
+                },
+                function (error) {
+                    vm.person = null;
                     console.log(error);
                 });
         }
