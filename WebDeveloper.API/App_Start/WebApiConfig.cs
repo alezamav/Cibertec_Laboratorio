@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.WebApi.Extensions.Compression.Server;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,10 @@ namespace WebDeveloper.API
                 0,new ServerCompressionHandler(new GZipCompressor(),
                 new DeflateCompressor()));
 
+            config.Formatters.
+                JsonFormatter.
+                SerializerSettings.
+                ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             config.MapHttpAttributeRoutes();
 

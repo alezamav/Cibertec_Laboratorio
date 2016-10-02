@@ -12,6 +12,10 @@
                 url: "/home",
                 templateUrl:"app/home.html"
             })
+            .state('person', {
+                  url: "/person",
+                  templateUrl: 'app/private/person/person.html'
+            })
             .state("otherwise",
             {
                 url: "path*",
