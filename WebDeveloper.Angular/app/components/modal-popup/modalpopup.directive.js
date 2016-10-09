@@ -9,7 +9,11 @@
             restrict: 'E',
             transclude: true,
             scope: {
-                title: '@'
+                title: '@',
+                buttonTitle: '@',
+                saveFunction: '=',
+                readOnly: '=',
+                isDelete:'='
             }
         };
     }

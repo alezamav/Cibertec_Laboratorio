@@ -5,6 +5,10 @@
     'use strict';
     angular.module('app', ['ngRoute',
                            'ui.router',
-                           'LocalStorageModule']);
+                           'LocalStorageModule',
+                           'ngAnimate',
+                           'ngSanitize',
+                           'ui.bootstrap'
+                            ]);
 
 })();

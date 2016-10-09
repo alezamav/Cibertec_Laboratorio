@@ -53,11 +53,14 @@ namespace WebDeveloper.API.Controllers
             return Ok();
         }
 
+        //[HttpDelete]
+        //[Route("")]
         [HttpDelete]
-        [Route("")]
-        public IHttpActionResult Delete(Person person)
+        [Route("{id:int}")]
+        public IHttpActionResult Delete(int? id)
         {
-            person = _repository.GetById(x => x.BusinessEntityID == person.BusinessEntityID);
+            if (!id.HasValue) return BadRequest(ModelState);
+            var person = _repository.GetById(x => x.BusinessEntityID ==id);
             _repository.Delete(person);
             return Ok();
         }
@@ -75,6 +78,12 @@ namespace WebDeveloper.API.Controllers
                 .PaginatedList(p => p.ModifiedDate, page.Value, size.Value));
         }
 
+        [HttpGet]
+        [Route("totalrows")]
+        public IHttpActionResult Total()
+        {
+            return Ok(_repository.GetList().Count);
+        }
 
         [HttpGet]
         [Route("{id:int}")]

@@ -23,8 +23,8 @@
             })
             .state("otherwise",
             {
-                url: "path*",
-                templateUrl:"app/home.html"
+                url: "*path",
+                templateUrl: "app/home.html"
             });
     }
 

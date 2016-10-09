@@ -40,7 +40,7 @@ namespace WebDeveloper.Angular.App_Start
                new DynamicFolderBundle("css", "*.js", false, new CssMinify())
                );
 
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
 
         }
     }
